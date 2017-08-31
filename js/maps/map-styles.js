@@ -2,6 +2,13 @@
 // Create a styles array to use with the map.
 var styles = [
   {
+    featureType: 'landscape.natural',
+    elementType: 'geometry',
+    stylers: [
+      {color: '#dfd2ae'}
+      ]
+  },
+  {
     featureType: 'water',
     stylers: [
       { color: '#262626' }
