@@ -1,15 +1,25 @@
-var ViewModel = function(locationIndex) {
-    var self = this;
+var SidebarViewModel = {
+	markers: ["initial item"],
+	view: function() {
+	    var self = this;
+	    var initialLocations = AppDelegate.getModel();
 
-    this.locationList = ko.observableArray([]);
+	    self.locationList = ko.observableArray([]);
 
-    initialLocations.forEach(function(locationItem) {
-        self.locationList.push( new Location(locationItem) );
-    });
+	    // displays details within the sidebar 
+	    // about the selected location
+	    self.currentLocation = ko.observable();
 
-    self.currentLocation = ko.observable( self.locationList()[locationIndex] );
+	    // pull data from the model into an observable array
+	    initialLocations.forEach(function(locationItem) {
+	        self.locationList.push( AppDelegate.buildLocation(locationItem) );
+	    });
 
-    self.renderLocation = function(location) {
-        self.currentLocation(location);
-    }
+	    self.renderLocation = function(location) {
+	        self.currentLocation(location);
+	        var thisLocationIndex = self.locationList().indexOf(location);
+	        AppDelegate.updateMarkers(thisLocationIndex);
+	        console.log(markers);
+	    }
+	}
 }
