@@ -3,11 +3,13 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald:200,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   </head>
   <body>
     <div class="container">
       <div class="sidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
+        <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: closeSidebar" aria-hidden="true"></i>
         <ul data-bind="foreach: locationList">
           <li><a href="" data-bind="text: title, event: { mouseover: $root.renderLocation, click: $root.renderLocation } "></a><li>
         </ul>
@@ -20,6 +22,9 @@
         </div>
       </div>
       <div id="map"></div>
+      <div class="hamburger-menu">
+        <i class="fa fa-bars fa-4x hamburger-symbol" data-bind="click: openSidebar" aria-hidden="true"></i>
+      </div>
     </div>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>

@@ -2,7 +2,22 @@
 
 // central hub for tying the model, sidebar and map together
 var AppDelegate = {
-
+	hideHamburgerMenuButton: function() {
+		$('.hamburger-menu').hide();
+	},
+	showHamburgerMenuButton: function() {
+		$('.hamburger-menu').show();
+	},
+	hideSidebar: function() {
+		$('.sidebar').hide();
+		Map.makeFullScreen();
+		this.showHamburgerMenuButton()
+	},
+	showSidebar: function() {
+		$('.sidebar').show();
+		Map.adjustForSidebar();
+		this.hideHamburgerMenuButton()
+	},
 	getModel: function() {
 		return Model.initialLocations;
 	}, 
@@ -11,6 +26,9 @@ var AppDelegate = {
 	},
 	getMarkers: function() {
 		return Markers.markers;
+	},
+	getMarkerBounds: function() {
+		return Markers.currentBounds;
 	},
 	highlightMarker: function(index) {
 		MarkerStylers.highlightMarker(index);

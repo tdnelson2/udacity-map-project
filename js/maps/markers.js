@@ -4,10 +4,14 @@ var Markers = {
 
 	markers: [],
 
+	currentBounds: null,
+
 
 	createMarkers: function() {
 	  var initialLocations = AppDelegate.getModel();
 	  var map = AppDelegate.getMap();
+	  var bounds = new google.maps.LatLngBounds();
+
 
 	  // Create an array of markers on initialize.
 	  for (var i = 0; i < initialLocations.length; i++) {
@@ -46,9 +50,10 @@ var Markers = {
 	    });
 
 	    // display all markers by default.
-	    var bounds = new google.maps.LatLngBounds();
 	    marker.setMap(map);
 	    bounds.extend(marker.position);
 	  }
+	  map.fitBounds(bounds);
+	  this.currentBounds = bounds;
 	}
 }

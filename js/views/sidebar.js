@@ -2,8 +2,13 @@ var SidebarViewModel = {
 	view: function() {
 	    var self = this;
 	    var initialLocations = AppDelegate.getModel();
-
 	    self.locationList = ko.observableArray([]);
+
+	    if($( window ).width() > 500){
+	    	AppDelegate.hideHamburgerMenuButton();
+	    } else {
+	    	AppDelegate.hideSidebar();
+	    }
 
 	    // displays details within the sidebar 
 	    // about the selected location
@@ -19,6 +24,14 @@ var SidebarViewModel = {
 	        var thisLocationIndex = self.locationList().indexOf(location);
 	        AppDelegate.displayInfoWindow(thisLocationIndex, false);
 	        AppDelegate.highlightMarker(thisLocationIndex);
+	    }
+
+	    self.closeSidebar = function() {
+	    	AppDelegate.hideSidebar();
+	    }
+
+	    self.openSidebar = function() {
+	    	AppDelegate.showSidebar();
 	    }
 	}
 }
