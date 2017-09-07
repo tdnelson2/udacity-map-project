@@ -68,3 +68,18 @@ li {
   height: 100%;
   position: relative;
 }
+
+.video-thumb {
+  width: 100px;
+  cursor: pointer;
+}
+
+.spacer {
+  margin-right: 5px;
+}
+
+.video-thumbs {
+  margin-top: 15px;
+/*  display: flex;
+  flex-wrap: wrap;*/
+}

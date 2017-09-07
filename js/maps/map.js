@@ -8,8 +8,8 @@ var Map = {
       zoom: 7,
       mapTypeControl: false
     })
-    SidebarViewModel.markers.push("Map has been setup");
-    MarkerStylers.init()
+    InfoWindow.init();
+    MarkerStylers.init();
     Markers.createMarkers();
   }
 }

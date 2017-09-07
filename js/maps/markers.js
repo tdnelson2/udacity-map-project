@@ -4,17 +4,6 @@ var Markers = {
 
 	markers: [],
 
-	updateMarkers: function(thisLocationIndex) {
-	    for (var i = 0; i < this.markers.length; i++) {
-	    if(thisLocationIndex === i) {
-	      this.markers[i].setIcon(MarkerStylers.highlightedIcon);
-	      MarkerStylers.displayInfoWindow(this.markers[i], MarkerStylers.largeInfowindow);
-	    } else {
-	      this.markers[i].setIcon(MarkerStylers.defaultIcon);
-	    }
-	  }
-	},
-
 
 	createMarkers: function() {
 	  var initialLocations = AppDelegate.getModel();
@@ -41,20 +30,19 @@ var Markers = {
 	    // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', (function( index ){
         	return function() {
-        		MarkerStylers.highlightMarker(index);
-        		console.log(index);
+        		AppDelegate.highlightMarker(index);
+        		AppDelegate.displayInfoWindow(index);
         	}
         })( i ));
 
         marker.addListener('mouseover', (function( index ){
         	return function() {
-        		MarkerStylers.highlightMarker(index);
-        		console.log(index);
+        		AppDelegate.highlightMarker(index);
         	}
         })( i ));
 
 	    marker.addListener('mouseout', function() {
-	      MarkerStylers.unhighlightAllMarkers()
+	      AppDelegate.unhighlightMarkers();
 	    });
 
 	    // display all markers by default.

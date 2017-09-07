@@ -1,5 +1,4 @@
 var SidebarViewModel = {
-	markers: ["initial item"],
 	view: function() {
 	    var self = this;
 	    var initialLocations = AppDelegate.getModel();
@@ -18,8 +17,8 @@ var SidebarViewModel = {
 	    self.renderLocation = function(location) {
 	        self.currentLocation(location);
 	        var thisLocationIndex = self.locationList().indexOf(location);
-	        AppDelegate.updateMarkers(thisLocationIndex);
-	        console.log(markers);
+	        AppDelegate.displayInfoWindow(thisLocationIndex, false);
+	        AppDelegate.highlightMarker(thisLocationIndex);
 	    }
 	}
 }
