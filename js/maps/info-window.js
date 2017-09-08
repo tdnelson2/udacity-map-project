@@ -20,15 +20,19 @@ var InfoWindow = {
       
       infowindow.marker = marker;
       infowindow.setContent('');
+
       // initially show only the title until the videos load asynchronously
       infowindow.setContent('<h3 id="infowindow-title">'+marker.title+'</h3><div id="video"><div class="embeded-video"></div><div class="video-thumbs"></div></div>');
       infowindow.open(map, marker);
       this.currentInfoWindow = infowindow;
+
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
+        AppDelegate.unhighlightMarkers();
         infowindow.marker = null;
       });
       if(shouldShowVideo) {
+
         // fill the infowindo with video content
         AppDelegate.displayVideo(markerIndex);
       }

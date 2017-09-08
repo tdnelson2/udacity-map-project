@@ -90,21 +90,38 @@ var InfoWindowVideoContent = {
 
   embedVideo: function(link) {
     var oembedURL = "https://vimeo.com/api/oembed.json";
+    var height = 360;
+    var width = 640;
+    var windowWidth = $( window ).width();
+    console.log('window width is '+windowWidth);
+
+    // adjust for mobile screens
+    if(windowWidth < 400){
+      height = 117;
+      width = 208;
+    } else if(windowWidth < 600) {
+      height = 180;
+      width = 320;
+    }
+    console.log('requesting height:'+height+' width:'+width);
+
     oembedURL += '?' + $.param({
       'url': link,
-      'height': 360,
-      'width': 640
+      'height': height,
+      'width': width
     });
-    console.log(oembedURL);
+    console.log('oembedURL: '+oembedURL);
 
     
     $.ajax({
       url: oembedURL,
       method: 'GET',
     }).done(function(oembedResult) {
-      console.log(oembedResult);
+      console.log('result: '+oembedResult.html);
+
       // clear the currently embeded video
       $('.embeded-video').html('');
+
       // embed the new video
       $('.embeded-video').append(oembedResult.html);
     }).fail(function(err){

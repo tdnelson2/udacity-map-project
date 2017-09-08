@@ -9,7 +9,7 @@ var SidebarViewModel = {
 	    if($( window ).width() > 500){
 	    	AppDelegate.hideHamburgerMenuButton();
 	    } else {
-	    	AppDelegate.hideSidebar();
+	    	AppDelegate.mobileMode();
 	    }
 
 	    // displays details within the sidebar 

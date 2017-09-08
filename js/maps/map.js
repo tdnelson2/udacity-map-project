@@ -11,6 +11,7 @@ var Map = {
     InfoWindow.init();
     MarkerStylers.init();
     Markers.createMarkers();
+    this.readjustScreen();
   },
 
   makeFullScreen: function() {
@@ -22,6 +23,10 @@ var Map = {
     $('#map').css('left', '300px')
     this.readjustScreen();
   }, 
+
+  mobileMode: function() {
+    $('#map').css('left', '0px')
+  },
 
   readjustScreen() {
     google.maps.event.trigger(map, "resize");

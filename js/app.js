@@ -8,15 +8,24 @@ var AppDelegate = {
 	showHamburgerMenuButton: function() {
 		$('.hamburger-menu').show();
 	},
+	mobileMode: function() {
+		$('.sidebar').hide();
+		Map.mobileMode();
+		this.showHamburgerMenuButton()
+	},
 	hideSidebar: function() {
 		$('.sidebar').hide();
 		Map.makeFullScreen();
-		this.showHamburgerMenuButton()
+		this.showHamburgerMenuButton();
+		this.unhighlightMarkers();
+		this.closeInfoWindow();
 	},
 	showSidebar: function() {
 		$('.sidebar').show();
 		Map.adjustForSidebar();
-		this.hideHamburgerMenuButton()
+		this.hideHamburgerMenuButton();
+		this.unhighlightMarkers();
+		this.closeInfoWindow();
 	},
 	getModel: function() {
 		return Model.initialLocations;
