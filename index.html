@@ -10,20 +10,25 @@
       <div class="sidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
         <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: closeSidebar" aria-hidden="true"></i>
+        <form>
+          <select class="country-select" data-bind="options: countries, optionsText: 'name', value: selectedCountry, event: {change: filterByCountry}"></select>
+        </form>
         <ul data-bind="foreach: locationList">
-          <li><a href="" data-bind="text: title, event: { mouseover: $root.renderLocation, click: $root.renderLocation } "></a><li>
+          <li data-bind="ifnot: hide">
+            <a href="" data-bind="text: title, event: { mouseover: $root.renderLocation, click: $root.renderLocation } "></a>
+          <li>
         </ul>
         <div data-bind="with: currentLocation" class="location-details">
           <hr>
           <h1 class="loction-title" data-bind="text: title"></h1>
           <h2 class="city" data-bind="text: city"></h2>
           <h4 class="contry" data-bind="text: country"></h4>
-          <p data-bind="text: description"></p>
+          <p class="description" data-bind="text: description"></p>
         </div>
       </div>
       <div id="map"></div>
-      <div class="hamburger-menu">
-        <i class="fa fa-bars fa-4x hamburger-symbol" data-bind="click: openSidebar" aria-hidden="true"></i>
+      <div class="hamburger-menu" data-bind="click: openSidebar">
+        <i class="fa fa-bars fa-4x hamburger-symbol" aria-hidden="true"></i>
       </div>
     </div>
     <script src="js/libs/jquery.min.js"></script>

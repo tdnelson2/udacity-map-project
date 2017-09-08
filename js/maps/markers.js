@@ -55,5 +55,15 @@ var Markers = {
 	  }
 	  map.fitBounds(bounds);
 	  this.currentBounds = bounds;
+	},
+
+	hideSpecifiedMarkers: function(indexes) {
+		for (var i = 0; i < this.markers.length; i++) {
+			if(indexes.includes(i)) {
+				this.markers[i].setVisible(false);
+			} else {
+				this.markers[i].setVisible(true);
+			}
+		}
 	}
 }

@@ -55,6 +55,7 @@ var Model = {
 	    this.country = ko.observable(data.country);
 	    this.description = ko.observable(data.description);
 	    this.coordinates = ko.observable(data.coordinates);
+	    this.hide = ko.observable(false);
 	},
 	buildLocation: function(data) {
 		return new this.Location(data) ;

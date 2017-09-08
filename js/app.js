@@ -30,6 +30,9 @@ var AppDelegate = {
 	getMarkerBounds: function() {
 		return Markers.currentBounds;
 	},
+	hideSpecifiedMarkers: function(indexes) {
+		Markers.hideSpecifiedMarkers(indexes);
+	},
 	highlightMarker: function(index) {
 		MarkerStylers.highlightMarker(index);
 	},
@@ -41,6 +44,9 @@ var AppDelegate = {
 	},
 	displayInfoWindow: function(index, shouldShowVideo) {
 		InfoWindow.displayInfoWindow(index, InfoWindow.largeInfowindow, shouldShowVideo);
+	},
+	closeInfoWindow: function() {
+		InfoWindow.largeInfowindow.close()
 	},
 	queryAndDisplayVideos: function(index, queries) {
 		InfoWindowVideoContent.queryAndDisplay(index, queries);
