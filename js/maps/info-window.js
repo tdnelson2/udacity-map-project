@@ -3,6 +3,9 @@ var InfoWindow = {
   // window for display details about the location at each marker.
   largeInfowindow: null,
 
+    /* much of the code here is taken directly from udacity/google examples
+    with some substantial modifications to make it displau vimeo videos */
+
 
   // This function populates the infowindow when the marker is clicked. We'll only allow
   // one infowindow which will open at the marker that is clicked, and populate based
@@ -17,12 +20,17 @@ var InfoWindow = {
     // Check to make sure the infowindow is not already opened on this marker.
     if(infowindow.marker != marker) {
 
-      
+
       infowindow.marker = marker;
       infowindow.setContent('');
 
       // initially show only the title until the videos load asynchronously
-      infowindow.setContent('<h3 id="infowindow-title">'+marker.title+'</h3><div id="video"><div class="embeded-video"></div><div class="video-thumbs"></div></div>');
+      infowindow.setContent(''+
+        '<h3 id="infowindow-title">'+marker.title+'</h3>'+
+        '<div id="video"><div class="embeded-video"></div>'+
+        '<div class="video-thumbs"></div>');
+
+
       infowindow.open(map, marker);
       this.currentInfoWindow = infowindow;
 
@@ -31,9 +39,10 @@ var InfoWindow = {
         AppDelegate.unhighlightMarkers();
         infowindow.marker = null;
       });
+
       if(shouldShowVideo) {
 
-        // fill the infowindo with video content
+        // fill the infowindow with video content
         AppDelegate.displayVideo(markerIndex);
       }
     }

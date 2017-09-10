@@ -1,43 +1,48 @@
  var SidebarViewModel = {
 	view: function() {
-	    var self = this;
-	    var initialLocations = AppDelegate.getModel();
-	    self.locationList = ko.observableArray([]);
-	    self.countries = ko.observableArray([{name: 'All'}]);
-	    self.selectedCountry = ko.observable(self.countries()[0]);
 
-	    if($( window ).width() > 500){
-	    	AppDelegate.hideHamburgerMenuButton();
-	    } else {
-	    	AppDelegate.mobileMode();
-	    }
+        var self = this;
 
-	    // displays details within the sidebar
-	    // about the selected location
-	    self.currentLocation = ko.observable();
+        var initialLocations = AppDelegate.getModel();
 
-	    // pull data from the model into an observable array
-	    initialLocations.forEach(function(locationItem) {
-	        self.locationList.push( AppDelegate.buildLocation(locationItem) );
-	        var countries = self.countries().map(function(x) {return x.name;});
-	        if(!countries.includes(locationItem.country)) {
-	        	console.log()
-	        	self.countries.push({name: locationItem.country});
-	        }
-	    });
+        self.timeItemWasClicked = 0;
 
+        /////////* BINDINGS PROPERTIES */////////
+
+        self.locationList = ko.observableArray([]);
+        self.countries = ko.observableArray([{name: 'All'}]);
+        self.selectedCountry = ko.observable(self.countries()[0]);
+
+        // displays details within the sidebar
+        // about the selected location
+        self.currentLocation = ko.observable();
+
+        /////////* HELPER FUNCTIONS */////////
         self.currentTime = function() {
             var d = new Date();
             return d.getTime();
         }
 
-        self.timeItemWasClicked = 0;
         self.shouldRespondToHover = function() {
             return ((self.currentTime() - self.timeItemWasClicked) > 5000);
         }
 
+        /////////* BINDINGS FUNCTIONS */////////
+
+        self.closeSidebar = function() {
+            AppDelegate.hideSidebar();
+        }
+
+        self.openSidebar = function() {
+            AppDelegate.showSidebar();
+        }
 
 	    self.renderLocationHover = function(location) {
+
+            // if user had just clicked on an item, the video will appear
+            // therefore we temporatily disable hover to prevent them from
+            // mousing over another item and closing the the video before
+            // they have a chance to interact with it
             if(self.shouldRespondToHover()) {
                 self.currentLocation(location);
                 var index = self.locationList().indexOf(location);
@@ -45,7 +50,6 @@
     	        AppDelegate.displayInfoWindow(index, false);
             }
 	    }
-
 
 	    self.renderLocationClick = function(location) {
             self.currentLocation(location);
@@ -75,12 +79,32 @@
 	    	AppDelegate.hideSpecifiedMarkers(markersToHide);
 	    }
 
-	    self.closeSidebar = function() {
-	    	AppDelegate.hideSidebar();
-	    }
+        /////////* SETUP */////////
 
-	    self.openSidebar = function() {
-	    	AppDelegate.showSidebar();
-	    }
+        self.init = function() {
+            var countries = [];
+
+            // pull data from the model into an observable array
+            initialLocations.forEach(function(locationItem) {
+                self.locationList.push( AppDelegate.buildLocation(locationItem) );
+
+                // build an array of countries which are represented in
+                // the locationList for use in the option select menu
+                if(!countries.includes(locationItem.country)) {
+                    countries.push(locationItem.country);
+                    self.countries.push({name: locationItem.country});
+                }
+            });
+
+            // adjust whether the sidebar is shown or not
+            // depending on the size of the window
+            if($( window ).width() > 500){
+                AppDelegate.hideHamburgerMenuButton();
+            } else {
+                AppDelegate.mobileMode();
+            }
+        }
+
+        self.init();
 	}
 }

@@ -6,6 +6,8 @@ var Markers = {
 
 	currentBounds: null,
 
+    /* much of the code here is taken directly from udacity/google examples
+    with some key differences particulary in the way I chose to do bindings */
 
 	createMarkers: function() {
 	  var initialLocations = AppDelegate.getModel();
@@ -15,9 +17,11 @@ var Markers = {
 
 	  // Create an array of markers on initialize.
 	  for (var i = 0; i < initialLocations.length; i++) {
+
 	    // Get the position from the location array.
 	    var position = initialLocations[i].coordinates;
 	    var title = initialLocations[i].title;
+
 	    // Create a marker per location, and put into markers array.
 	    var marker = new google.maps.Marker({
 	      position: position,
@@ -26,7 +30,6 @@ var Markers = {
 	      animation: google.maps.Animation.DROP,
 	      id: i
 	    });
-
 
 	    // Push the marker to our array of markers.
 	    this.markers.push(marker);
@@ -54,6 +57,8 @@ var Markers = {
 	    bounds.extend(marker.position);
 	  }
 	  map.fitBounds(bounds);
+
+      // save the bounds for later adjustments if user opens/closes sidebar
 	  this.currentBounds = bounds;
 	},
 

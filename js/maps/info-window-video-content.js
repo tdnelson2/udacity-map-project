@@ -1,15 +1,15 @@
 var InfoWindowVideoContent = {
   display: function(index) {
+
     // grab the model so we can use it's data to search for videos
     var locations = AppDelegate.getModel();
     var thisLocation = locations[index];
 
     // build a list of queries
-    // if queryAndDisplay returns something, the search
-    // is aborted and the videos are displayed
     var queries = [thisLocation.title, thisLocation.city, thisLocation.country];
     this.queryAndDisplay(index, queries);
   },
+
 	queryAndDisplay: function(index, queries) {
     (function(index, queries) {
       // load matching lahash videos from vimeo
@@ -58,11 +58,10 @@ var InfoWindowVideoContent = {
             for (var i = 0; i < dataAry.length; i++) {
               var data = dataAry[i];
               var spacer = '';
-              // if(i != dataAry.length - 1) {
-                spacer = ' spacer';
-              // }
-              var thumb = '<img id="thumb" class="video-thumb'+spacer+'" src="'+data.pictures.sizes[2].link+'">';
+              var thumb = '<img id="thumb" class="video-thumb spacer" src="'+data.pictures.sizes[2].link+'">';
               $('.video-thumbs').append(thumb);
+
+              // add a binding to each thumb
               (function(link){
                 $('#thumb:last-child').click(function() {
                   AppDelegate.embedVideo(link);
@@ -70,8 +69,9 @@ var InfoWindowVideoContent = {
               })(data.link);
             }
 
-            // embed the first result, otherwise do nothing
+            // If a video is not alread there, embed the first video from the results
             if($('.embeded-video').html() === '') {
+
               // fire off request to embed the first video
               AppDelegate.embedVideo(dataAry[0].link);
             }

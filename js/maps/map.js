@@ -1,6 +1,6 @@
 var Map = {
   map: null,
-  init: function () {
+  init: function (result) {
     // Constructor creates a new map - only center and zoom are required.
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -3.792678, lng: 35.545009},
@@ -8,10 +8,6 @@ var Map = {
       zoom: 5,
       mapTypeControl: false
     })
-    InfoWindow.init();
-    MarkerStylers.init();
-    Markers.createMarkers();
-    this.readjustScreen();
   },
 
   makeFullScreen: function() {

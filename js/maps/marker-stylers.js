@@ -22,19 +22,13 @@ MarkerStylers = {
     return markerImage;
   },
 
-  updateMarkers: function(markerIndex) {
+  // highlight the marker represented by the index,
+  // unhighlight all others
+  toggleMarkers: function(markerIndex) {
     var markers = AppDelegate.getMarkers();
     for (var i = 0; i < markers.length; i++) {
       if(i === markerIndex) {
         markers[i].setIcon(this.highlightedIcon);
-        // if(
-        //   markerIndex != null 
-        //   && InfoWindow.currentInfoWindow.marker != null 
-        //   && InfoWindow.currentInfoWindow.marker != markers[markerIndex]
-        //   ) {
-        //   InfoWindow.currentInfoWindow.marker = null;
-        //   console.log("info window should clear")
-        // }
       } else {
         markers[i].setIcon(this.defaultIcon);
       }
@@ -42,11 +36,11 @@ MarkerStylers = {
   },
 
   highlightMarker: function(markerIndex) {
-    this.updateMarkers(markerIndex);
+    this.toggleMarkers(markerIndex);
   },
 
   unhighlightAllMarkers: function() {
-    this.updateMarkers(null);
+    this.toggleMarkers(null);
   },
 
   init: function() {
