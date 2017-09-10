@@ -18,7 +18,7 @@
         </form>
         <ul data-bind="foreach: locationList">
           <li data-bind="ifnot: hide">
-            <a href="" data-bind="text: title, event: { mouseover: $root.renderLocation, click: $root.renderLocation } "></a>
+            <a href="" data-bind="text: title, event: { mouseover: $root.renderLocationHover, click: $root.renderLocationClick } "></a>
           <li>
         </ul>
         <div data-bind="with: currentLocation" class="location-details">

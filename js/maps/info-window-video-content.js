@@ -4,8 +4,8 @@ var InfoWindowVideoContent = {
     var locations = AppDelegate.getModel();
     var thisLocation = locations[index];
 
-    // build a list of queries 
-    // if queryAndDisplay returns something, the search 
+    // build a list of queries
+    // if queryAndDisplay returns something, the search
     // is aborted and the videos are displayed
     var queries = [thisLocation.title, thisLocation.city, thisLocation.country];
     this.queryAndDisplay(index, queries);
@@ -40,7 +40,7 @@ var InfoWindowVideoContent = {
             }
 
             // compare them to those in the new search results
-            // note: we're working from the end of dataAry 
+            // note: we're working from the end of dataAry
             // in order to avoid messing up our loop when removing items
             for (var i = dataAry.length - 1; i >= 0; --i) {
               if(existingThumbURLs.includes(dataAry[i].pictures.sizes[2].link)) {
@@ -93,7 +93,7 @@ var InfoWindowVideoContent = {
     var height = 360;
     var width = 640;
     var windowWidth = $( window ).width();
-    console.log('window width is '+windowWidth);
+    // console.log('window width is '+windowWidth);
 
     // adjust for mobile screens
     if(windowWidth < 400){
@@ -103,21 +103,21 @@ var InfoWindowVideoContent = {
       height = 180;
       width = 320;
     }
-    console.log('requesting height:'+height+' width:'+width);
+    // console.log('requesting height:'+height+' width:'+width);
 
     oembedURL += '?' + $.param({
       'url': link,
       'height': height,
       'width': width
     });
-    console.log('oembedURL: '+oembedURL);
+    // console.log('oembedURL: '+oembedURL);
 
-    
+
     $.ajax({
       url: oembedURL,
       method: 'GET',
     }).done(function(oembedResult) {
-      console.log('result: '+oembedResult.html);
+      // console.log('result: '+oembedResult.html);
 
       // clear the currently embeded video
       $('.embeded-video').html('');
@@ -127,6 +127,6 @@ var InfoWindowVideoContent = {
     }).fail(function(err){
       console.log("OEMBED: something went wrong");
     });
-    
+
   }
 }

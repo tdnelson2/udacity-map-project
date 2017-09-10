@@ -5,7 +5,7 @@ var Map = {
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -3.792678, lng: 35.545009},
       styles: styles,
-      zoom: 6,
+      zoom: 5,
       mapTypeControl: false
     })
     InfoWindow.init();
@@ -22,7 +22,7 @@ var Map = {
   adjustForSidebar: function() {
     $('#map').css('left', '300px')
     this.readjustScreen();
-  }, 
+  },
 
   mobileMode: function() {
     $('#map').css('left', '0px')

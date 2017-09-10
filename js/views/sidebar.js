@@ -1,4 +1,4 @@
-var SidebarViewModel = {
+ var SidebarViewModel = {
 	view: function() {
 	    var self = this;
 	    var initialLocations = AppDelegate.getModel();
@@ -12,7 +12,7 @@ var SidebarViewModel = {
 	    	AppDelegate.mobileMode();
 	    }
 
-	    // displays details within the sidebar 
+	    // displays details within the sidebar
 	    // about the selected location
 	    self.currentLocation = ko.observable();
 
@@ -25,14 +25,34 @@ var SidebarViewModel = {
 	        	self.countries.push({name: locationItem.country});
 	        }
 	    });
-	    console.log(self.countries());
+
+        self.currentTime = function() {
+            var d = new Date();
+            return d.getTime();
+        }
+
+        self.timeItemWasClicked = 0;
+        self.shouldRespondToHover = function() {
+            return ((self.currentTime() - self.timeItemWasClicked) > 5000);
+        }
 
 
-	    self.renderLocation = function(location) {
-	        self.currentLocation(location);
-	        var thisLocationIndex = self.locationList().indexOf(location);
-	        AppDelegate.displayInfoWindow(thisLocationIndex, false);
-	        AppDelegate.highlightMarker(thisLocationIndex);
+	    self.renderLocationHover = function(location) {
+            if(self.shouldRespondToHover()) {
+                self.currentLocation(location);
+                var index = self.locationList().indexOf(location);
+                AppDelegate.highlightMarker(index);
+    	        AppDelegate.displayInfoWindow(index, false);
+            }
+	    }
+
+
+	    self.renderLocationClick = function(location) {
+            self.currentLocation(location);
+            var index = self.locationList().indexOf(location);
+            AppDelegate.highlightMarker(index);
+	        AppDelegate.displayVideo(index);
+            self.timeItemWasClicked = self.currentTime();
 	    }
 
 	    self.filterByCountry = function(location) {
