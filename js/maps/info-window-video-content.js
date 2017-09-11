@@ -7,7 +7,6 @@ var InfoWindowVideoContent = {
 
     // build a list of queries
     var queries = [thisLocation.title, thisLocation.city, thisLocation.country];
-    var  existingThumbs = [];
     this.queryAndDisplay(index, queries, []);
   },
 
