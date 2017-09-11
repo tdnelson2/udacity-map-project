@@ -122,6 +122,7 @@ var InfoWindowVideoContent = {
 
       // clear the currently embeded video
       $('.embeded-video').html('');
+      $('.video-thumbs').css('width', width+'px');
 
       // embed the new video
       $('.embeded-video').append(oembedResult.html);

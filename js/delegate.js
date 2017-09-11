@@ -10,8 +10,8 @@ var AppDelegate = {
     },
     mobileMode: function() {
         $('.sidebar').hide();
+        this.hideHamburgerMenuButton();
         Map.mobileMode();
-        this.showHamburgerMenuButton()
     },
     hideSidebar: function() {
         $('.sidebar').hide();

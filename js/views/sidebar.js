@@ -98,7 +98,7 @@
 
             // adjust whether the sidebar is shown or not
             // depending on the size of the window
-            if($( window ).width() > 500){
+            if($( window ).width() > 500 && $( window ).height() > 500){
                 AppDelegate.hideHamburgerMenuButton();
             } else {
                 AppDelegate.mobileMode();

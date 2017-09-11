@@ -97,12 +97,12 @@ li a,
 
 .description {
   width: 250px;
-/*  height: 410px;
-  overflow: scroll;*/
+  height: 200px;
+  overflow: scroll;
 }
 
 .video-thumb {
-  width: 100px;
+  width: 80px;
   cursor: pointer;
 }
 
