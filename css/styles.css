@@ -22,8 +22,7 @@ body {
 .sidebar {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
-  /*height: 100%;*/
-  line-height: 35px; 
+  line-height: 35px;
   padding-top: 10px;
   text-align: left;
   width: 300px;
@@ -77,13 +76,18 @@ form {
   outline: 0;
 }
 
-.location-details, .sidebar-brand, li a, .sidebar-close-btn, .hamburger-menu, .country-select {
+.location-details,
+.sidebar-brand,
+li a,
+.sidebar-close-btn,
+.hamburger-menu,
+.country-select {
   color: #999999;
 }
 
 .location-details, .sidebar-brand {
   padding-left: 20px;
-  padding-right: 20px; 
+  padding-right: 20px;
 }
 
 .location-title {
@@ -144,4 +148,5 @@ form {
 
 .video-thumbs {
   margin-top: 15px;
+  overflow: scroll;
 }

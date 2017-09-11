@@ -7,10 +7,11 @@ var InfoWindowVideoContent = {
 
     // build a list of queries
     var queries = [thisLocation.title, thisLocation.city, thisLocation.country];
-    this.queryAndDisplay(index, queries);
+    var  existingThumbs = [];
+    this.queryAndDisplay(index, queries, []);
   },
 
-	queryAndDisplay: function(index, queries) {
+	queryAndDisplay: function(index, queries, existingThumbs) {
     (function(index, queries) {
       // load matching lahash videos from vimeo
       var url = "https://api.vimeo.com/users/lahash/videos";
@@ -29,26 +30,23 @@ var InfoWindowVideoContent = {
   		  var dataAry = result.data;
   		  if(dataAry.length > 0) {
 
-          // grab thumbs which are already present in the DOM
-          var existingThumbs = $('.video-thumbs').children();
           if(existingThumbs.length > 0){
-            var existingThumbURLs = [];
-            for (var i = 0; i < existingThumbs.length; i++) {
 
-              // grab the src url for the thumb
-              existingThumbURLs.push($('#thumb:eq('+i+')').attr('src'));
-            }
-
-            // compare them to those in the new search results
+            // compare thumbs found in previous queries to
+            // those in the new search results
             // note: we're working from the end of dataAry
             // in order to avoid messing up our loop when removing items
             for (var i = dataAry.length - 1; i >= 0; --i) {
-              if(existingThumbURLs.includes(dataAry[i].pictures.sizes[2].link)) {
+              if(existingThumbs.includes(dataAry[i].pictures.sizes[2].link)) {
 
                 // since that result is already displayed, remove it from dataAry
                 dataAry.splice(i,1);
               }
             }
+          } else {
+
+            // prepare to add the first group of thumbs
+            $('.video-thumbs').css('height', '75px');
           }
 
           // make sure the above process was able to yeild new results
@@ -67,6 +65,9 @@ var InfoWindowVideoContent = {
                   AppDelegate.embedVideo(link);
                 });
               })(data.link);
+              existingThumbs = existingThumbs.concat(dataAry.map(function(x) {
+                return x.pictures.sizes[2].link;
+              }));
             }
 
             // If a video is not alread there, embed the first video from the results
@@ -80,7 +81,7 @@ var InfoWindowVideoContent = {
 
         // restart the process using the next search term in the query list
         if(queries.length > 0) {
-          AppDelegate.queryAndDisplayVideos(index, queries);
+          AppDelegate.queryAndDisplayVideos(index, queries, existingThumbs);
         }
       }).fail(function(err) {
         console.log("something went wrong");

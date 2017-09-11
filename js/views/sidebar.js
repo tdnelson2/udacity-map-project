@@ -55,7 +55,7 @@
             self.currentLocation(location);
             var index = self.locationList().indexOf(location);
             AppDelegate.highlightMarker(index);
-	        AppDelegate.displayVideo(index);
+            AppDelegate.displayInfoWindow(index, true);
             self.timeItemWasClicked = self.currentTime();
 	    }
 

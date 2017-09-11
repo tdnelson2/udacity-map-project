@@ -60,8 +60,8 @@ var AppDelegate = {
     displayVideo: function(index) {
         InfoWindowVideoContent.display(index);
     },
-    queryAndDisplayVideos: function(index, queries) {
-        InfoWindowVideoContent.queryAndDisplay(index, queries);
+    queryAndDisplayVideos: function(index, queries, existingThumbs) {
+        InfoWindowVideoContent.queryAndDisplay(index, queries, existingThumbs);
     },
     embedVideo: function(link) {
       InfoWindowVideoContent.embedVideo(link);
