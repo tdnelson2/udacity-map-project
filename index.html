@@ -10,12 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   </head>
   <body>
-      <div class="sidebar">
+      <div class="sidebar" id="sidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
-        <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: closeSidebar" aria-hidden="true"></i>
-        <form>
-          <select class="country-select" data-bind="options: countries, optionsText: 'name', value: selectedCountry, event: {change: filterByCountry}"></select>
-        </form>
         <ul data-bind="foreach: locationList">
           <li data-bind="ifnot: hide">
             <a href="" data-bind="text: title, event: { mouseover: $root.renderLocationHover, click: $root.renderLocationClick } "></a>
@@ -37,9 +33,11 @@
     <script src="js/maps/info-window.js"></script>
     <script src="js/maps/marker.js"></script>
     <script src="js/maps/map.js"></script>
+    <script src="js/views/sidebar.js"></script>
+    <script src="js/app.js"></script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=Map.initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=mapReady">
     </script>
     <!-- templates -->
     <script type="text/html" id="info-window-template">

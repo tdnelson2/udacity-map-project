@@ -56,5 +56,6 @@ var Model = {
 		this.description = data.description;
 		this.coordinates = data.coordinates;
 		this.hide = ko.observable(false);
+		this.marker = null;
 	}
 }

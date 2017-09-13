@@ -1,8 +1,8 @@
 Marker = {
-    buildMarker: function(location, infoWindow) {
+    buildMarker: function(location, infoWindow, map) {
         var marker = new google.maps.Marker({
           position: location.coordinates,
-          map: Map.map,
+          map: map,
           title: location.title
         });
 
