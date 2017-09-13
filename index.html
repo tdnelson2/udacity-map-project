@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Lahash Partner Map</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
@@ -9,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   </head>
   <body>
-    <div class="container">
       <div class="sidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
         <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: closeSidebar" aria-hidden="true"></i>
@@ -29,25 +29,27 @@
           <p class="description" data-bind="text: description"></p>
         </div>
       </div>
-      <div id="map"></div>
-      <div class="hamburger-menu" data-bind="click: openSidebar">
-        <i class="fa fa-bars fa-4x hamburger-symbol" aria-hidden="true"></i>
-      </div>
-    </div>
+    <div id="map"></div>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/models/model.js"></script>
     <script src="js/maps/info-window-video-content.js"></script>
     <script src="js/maps/info-window.js"></script>
-    <script src="js/maps/marker-stylers.js"></script>
-    <script src="js/maps/markers.js"></script>
-    <script src="js/maps/map-styles.js"></script>
+    <script src="js/maps/marker.js"></script>
     <script src="js/maps/map.js"></script>
-    <script src="js/views/sidebar.js"></script>
-    <script src="js/delegate.js"></script>
-    <script src="js/app.js"></script>
+
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=AppDelegate.initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=Map.initMap">
+    </script>
+    <!-- templates -->
+    <script type="text/html" id="info-window-template">
+      <div  id="partner-info-window">
+        <h4 data-bind="text: currentLocation().title"></h4>
+        <div id="embeded-video" data-bind="html: embeddedVideo"></div>
+        <div id="video-thumbs" data-bind="foreach: videoThumbs">
+          <img data-bind="click: $root.fetchVideo, attr: { src: url }" class="video-thumb" src="">
+        </div>
+      </div>
     </script>
 
   </body>

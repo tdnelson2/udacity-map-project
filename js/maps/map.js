@@ -1,31 +1,31 @@
-var Map = {
+
+Map = {
+
   map: null,
-  init: function (result) {
-    // Constructor creates a new map - only center and zoom are required.
+
+  markers: [],
+
+  infoWindow: null,
+
+  mapCenter: { lat: -3.792678, lng: 35.545009 },
+
+  initMap: function() {
+
+    // build map
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -3.792678, lng: 35.545009},
-      styles: styles,
-      zoom: 5,
-      mapTypeControl: false
-    })
-  },
+      center: this.mapCenter,
+      zoom: 6
+    });
 
-  makeFullScreen: function() {
-    $('#map').css('left', '0px')
-    this.readjustScreen();
-  },
+    // add the infoWindow that will be used by all markers
+    this.infoWindow = new google.maps.InfoWindow();
 
-  adjustForSidebar: function() {
-    $('#map').css('left', '300px')
-    this.readjustScreen();
-  },
 
-  mobileMode: function() {
-    $('#map').css('left', '0px')
-  },
+    // build markers
+    for (var i = 0; i < Model.Locations.length; i++) {
+      this.markers.push(Marker.buildMarker(Model.Locations[i], this.infoWindow));
+    }
 
-  readjustScreen() {
-    google.maps.event.trigger(map, "resize");
-    this.map.fitBounds(AppDelegate.getMarkerBounds());
+
   }
-}
+};

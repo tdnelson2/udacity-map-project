@@ -1,6 +1,6 @@
 var Model = {
 	// Partner data
-	initialLocations : [
+	Locations : [
 		{
 			title: 'Rwanda Partners',
 			city: 'Kigali',
@@ -50,14 +50,11 @@ var Model = {
 	],
 
 	Location: function(data) {
-	    this.title = ko.observable(data.title);
-	    this.city = ko.observable(data.city);
-	    this.country = ko.observable(data.country);
-	    this.description = ko.observable(data.description);
-	    this.coordinates = ko.observable(data.coordinates);
-	    this.hide = ko.observable(false);
-	},
-	buildLocation: function(data) {
-		return new this.Location(data) ;
+		this.title = data.title;
+		this.city = data.city;
+		this.country = data.country;
+		this.description = data.description;
+		this.coordinates = data.coordinates;
+		this.hide = ko.observable(false);
 	}
 }

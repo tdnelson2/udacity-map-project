@@ -1,51 +1,34 @@
 var InfoWindow = {
 
-  // window for display details about the location at each marker.
-  largeInfowindow: null,
+  populateInfoWindow: function(infoWindow, marker, index) {
+    // Check to make sure the infowWindow is not already opened on this marker.
+    if (infoWindow.marker != marker) {
+      infoWindow.marker = marker;
+      var infoWindowHTML = document.getElementById("info-window-template").innerHTML;
+      infoWindow.setContent(infoWindowHTML);
+      infoWindow.open(map, marker);
+      ko.applyBindings(new InfoWindow.ViewModel(index),
+                 document.getElementById('partner-info-window'));
 
-    /* much of the code here is taken directly from udacity/google examples
-    with some substantial modifications to make it displau vimeo videos */
-
-
-  // This function populates the infowindow when the marker is clicked. We'll only allow
-  // one infowindow which will open at the marker that is clicked, and populate based
-  // on that markers position.
-  displayInfoWindow: function(markerIndex, infowindow, shouldShowVideo) {
-    var map = AppDelegate.getMap();
-    var markers = AppDelegate.getMarkers();
-    var marker = markers[markerIndex];
-    if(shouldShowVideo === undefined) {
-      shouldShowVideo = true;
+      // Make sure the marker property is cleared if the infoWindow is closed.
+      infoWindow.addListener('closeclick', function(){
+      infoWindow.setMarker = null;
+      });
     }
-
-
-    infowindow.marker = marker;
-    infowindow.setContent('');
-
-    // initially show only the title until the videos load asynchronously
-    infowindow.setContent(''+
-      '<h3 id="infowindow-title">'+marker.title+'</h3>'+
-      '<div id="video"><div class="embeded-video"></div>'+
-      '<div class="video-thumbs"></div>');
-
-
-    infowindow.open(map, marker);
-    this.currentInfoWindow = infowindow;
-
-    // Make sure the marker property is cleared if the infowindow is closed.
-    infowindow.addListener('closeclick', function() {
-      AppDelegate.unhighlightMarkers();
-      infowindow.marker = null;
-    });
-
-    if(shouldShowVideo) {
-
-      // fill the infowindow with video content
-      AppDelegate.displayVideo(markerIndex);
-      }
   },
 
-  init: function() {
-    this.largeInfowindow = new google.maps.InfoWindow();
+  ViewModel: function(index) {
+    var self = this;
+    self.currentLocation = ko.observable(Model.Locations[index]);
+    self.embeddedVideo = ko.observable('');
+    self.videoThumbs = ko.observableArray([]);
+    self.fetchVideo = function(thumb) {
+      InfoWindowVideoContent.embedVideo(thumb.link, self.embeddedVideo);
+    };
+
+    // add links to videos and embed the top result
+    InfoWindowVideoContent.render(self.currentLocation,
+                    self.videoThumbs,
+                    self.embeddedVideo);
   }
 }
