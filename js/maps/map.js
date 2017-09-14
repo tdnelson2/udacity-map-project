@@ -15,15 +15,6 @@ Map = {
       zoom: 6
     });
 
-    // // add the infoWindow that will be used by all markers
-    // this.infoWindow = new google.maps.InfoWindow();
-
-
-    // // build markers
-    // for (var i = 0; i < Model.Locations.length; i++) {
-    //   this.markers.push(Marker.buildMarker(Model.Locations[i], this.infoWindow));
-    // }
-
     return map;
   }
 };

@@ -12,9 +12,12 @@
   <body>
       <div class="sidebar" id="sidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
+        <form>
+          <select class="country-select" data-bind="options: countries, optionsText: 'name', value: selectedCountry, event: {change: filterByCountry}"></select>
+        </form>
         <ul data-bind="foreach: locationList">
           <li data-bind="ifnot: hide">
-            <a href="" data-bind="text: title, event: { mouseover: $root.renderLocationHover, click: $root.renderLocationClick } "></a>
+            <a href="" data-bind="text: title, click: $root.renderLocationClick"></a>
           <li>
         </ul>
         <div data-bind="with: currentLocation" class="location-details">
@@ -31,6 +34,7 @@
     <script src="js/models/model.js"></script>
     <script src="js/maps/info-window-video-content.js"></script>
     <script src="js/maps/info-window.js"></script>
+    <script src="js/maps/marker-stylers.js"></script>
     <script src="js/maps/marker.js"></script>
     <script src="js/maps/map.js"></script>
     <script src="js/views/sidebar.js"></script>

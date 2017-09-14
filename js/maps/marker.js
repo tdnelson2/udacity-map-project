@@ -1,19 +1,22 @@
 Marker = {
-  buildMarker: function(infoWindow, map, locationIndex, locationList, currentLocation) {
-    var location = locationList()[locationIndex];
+  buildMarker: function(infoWindow, map, locationIndex, markers, locationListKO, currentLocationKO) {
+    var location = locationListKO()[locationIndex];
     var marker = new google.maps.Marker({
       position: location.coordinates,
       map: map,
-      title: location.title
+      icon: MarkerStylers.defaultIcon,
+      title: location.title,
+      animation: google.maps.Animation.DROP,
     });
 
-    marker.addListener('click', (function(infoWindow, marker, index, locationList, currentLocation){
+    marker.addListener('click', (function(infoWindow, marker, markers, index, locationListKO, currentLocationKO){
       return function() {
-          InfoWindow.populateInfoWindow(infoWindow, marker, index);
-          currentLocation(locationList()[index]);
+          MarkerStylers.bounce(marker, markers);
+          InfoWindow.populateInfoWindow(infoWindow, marker, markers, index, currentLocationKO);
+          currentLocationKO(locationListKO()[index]);
       }
-    })(infoWindow, marker, locationIndex, locationList, currentLocation));
+    })(infoWindow, marker, markers, locationIndex, locationListKO, currentLocationKO));
 
-    return marker;
+    markers.push(marker);
   }
 }

@@ -24,8 +24,7 @@ MarkerStylers = {
 
   // highlight the marker represented by the index,
   // unhighlight all others
-  toggleMarkers: function(markerIndex) {
-    var markers = AppDelegate.getMarkers();
+  toggleMarkers: function(markers, markerIndex) {
     for (var i = 0; i < markers.length; i++) {
       if(i === markerIndex) {
         markers[i].setIcon(this.highlightedIcon);
@@ -35,12 +34,35 @@ MarkerStylers = {
     }
   },
 
-  highlightMarker: function(markerIndex) {
-    this.toggleMarkers(markerIndex);
+  highlightMarker: function(markers, markerIndex) {
+    this.toggleMarkers(markers, markerIndex);
   },
 
-  unhighlightAllMarkers: function() {
-    this.toggleMarkers(null);
+  unhighlightAllMarkers: function(markers) {
+    this.toggleMarkers(markers, null);
+  },
+
+  bounce: function(marker, markers) {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      this.highlightMarker(markers, markers.indexOf(marker));
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(m) { 
+        return function() { 
+          m.setAnimation(null); 
+        }; }(marker), 1500);
+    }
+  },
+
+  hideSpecifiedMarkers: function(markers, indexes) {
+    for (var i = 0; i < markers.length; i++) {
+      if(indexes.includes(i)) {
+        markers[i].setVisible(false);
+      } else {
+        markers[i].setVisible(true);
+      }
+    }
   },
 
   init: function() {

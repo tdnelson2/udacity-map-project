@@ -1,6 +1,6 @@
 var InfoWindow = {
 
-  populateInfoWindow: function(infoWindow, marker, index) {
+  populateInfoWindow: function(infoWindow, marker, markers, index, currentLocationKO) {
     // Check to make sure the infowWindow is not already opened on this marker.
     if (infoWindow.marker != marker) {
       infoWindow.marker = marker;
@@ -12,7 +12,9 @@ var InfoWindow = {
 
       // Make sure the marker property is cleared if the infoWindow is closed.
       infoWindow.addListener('closeclick', function(){
-      infoWindow.setMarker = null;
+        MarkerStylers.unhighlightAllMarkers(markers);
+        currentLocationKO(null);
+        infoWindow.setMarker = null;
       });
     }
   },
