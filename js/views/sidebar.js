@@ -23,7 +23,7 @@
         	self.map = Map.initMap();
         	self.infoWindow = new google.maps.InfoWindow();
 			for (var i = 0; i < self.locationList().length; i++) {
-				var marker = Marker.buildMarker(Model.Locations[i], self.infoWindow, self.map);
+				var marker = Marker.buildMarker(self.infoWindow, self.map, i, self.locationList, self.currentLocation);
 				self.locationList()[i].marker = marker;
 			}
         }, self, "mapReadyForInit");
