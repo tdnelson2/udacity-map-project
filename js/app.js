@@ -1,10 +1,28 @@
-// TODO: restucture app using PubSub method described here: http://www.wrapcode.com/communication-between-multiple-view-models-in-knockoutjs-mvvm-the-right-approach/
+
+/////////* MANAGE MAP SETUP */////////
+
 var notifier = new ko.subscribable();
 
-// call back used when Google Maps load to notify the ViewModel that map is ready to init
+// This is called when Google Maps load.
+// It tells ViewModel to init map.
 function mapReady() {
 	notifier.notifySubscribers("map is ready", "mapReadyForInit");
 }
 
+
+// This is called if Google Maps request times out.
+setTimeout(function() {
+	try {
+		if(!google || !google.maps) {};
+	} catch(err) {
+		notifier.notifySubscribers("map timmed out", "mapTimout");
+	}
+}, 8000);
+
+
+/////////* LOAD VIEW MODEL */////////
+
+var isMobileDevice = $( window ).width() < 500; 
+
 // init knockoutjs to manage sidebar view
-ko.applyBindings(new SidebarViewModel.view(), document.getElementById('sidebar'));
+ko.applyBindings(new SidebarViewModel.view(isMobileDevice));

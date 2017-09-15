@@ -10,8 +10,9 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   </head>
   <body>
-      <div class="sidebar" id="sidebar">
+      <div class="sidebar" id="sidebar" data-bind="visible: shouldShowSidebar">
         <h1 class="sidebar-brand">Our Partners</h1>
+        <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: toggleSidebar" aria-hidden="true"></i>
         <form>
           <select class="country-select" data-bind="options: countries, optionsText: 'name', value: selectedCountry, event: {change: filterByCountry}"></select>
         </form>
@@ -28,7 +29,10 @@
           <p class="description" data-bind="text: description"></p>
         </div>
       </div>
-    <div id="map"></div>
+    <div id="map" data-bind="css: sizeCanvas"></div>
+    <div class="hamburger-menu" data-bind="click: toggleSidebar, visible: mapShouldBeFullScreen">
+      <i class="fa fa-bars fa-4x hamburger-symbol" aria-hidden="true"></i>
+    </div>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/models/model.js"></script>
@@ -48,10 +52,13 @@
       <div  id="partner-info-window">
         <h4 data-bind="text: currentLocation().title"></h4>
         <div id="embeded-video" data-bind="html: embeddedVideo"></div>
-        <div id="video-thumbs" data-bind="foreach: videoThumbs">
+        <div class="video-thumbs" data-bind="foreach: videoThumbs">
           <img data-bind="click: $root.fetchVideo, attr: { src: url }" class="video-thumb" src="">
         </div>
       </div>
+    </script>
+    <script type="text/html" id="embed-video-error">
+      <h1>There was a problem getting data from Vimeo</h1>
     </script>
 
   </body>
