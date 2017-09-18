@@ -57,13 +57,13 @@ var InfoWindow = {
       self.shouldShowDetails(!self.shouldShowDetails());
       // Adjust map to fit larger infowindow.
       infoWindow.open(map, marker);
-    }
+    };
 
     self.toggleFullText = function() {
       self.shouldShowFullDetails(!self.shouldShowFullDetails());
       // Adjust map to fit larger infowindow.
       infoWindow.open(map, marker);
-    }
+    };
 
     self.fetchVideo = function(thumb) {
       InfoWindow.embedVideo(thumb.link, self.embeddedVideo, mapIsFullScreenKO, map, marker, infoWindow);
@@ -142,16 +142,16 @@ var InfoWindow = {
       if(dataAry.length > 0) {
         if(embeddedVideoKO() === '') {
           InfoWindow.embedVideo(dataAry[0].link, embeddedVideoKO, mapIsFullScreenKO, map, marker, infoWindow);
-        };
+        }
         dataAry.map(function(x) {
-          var currentThumbs = thumbsKO().map(function(x) { return x.url });
+          var currentThumbs = thumbsKO().map(function(x) { return x.url; });
           var thumbURL = x.pictures.sizes[2].link;
           if(!currentThumbs.includes(thumbURL)) {
             thumbsKO.push({ url: thumbURL,
                     link: x.link} );
-          };
+          }
         });
-      };
+      }
       if(searchTerms.length > 0) {
         InfoWindow.addFromQuery(map,
                           infoWindow,
@@ -188,4 +188,4 @@ var InfoWindow = {
       embeddedVideoKO(document.getElementById('embed-video-error'));
     });
   }
-}
+};

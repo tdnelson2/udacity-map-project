@@ -13,7 +13,7 @@ function mapReady() {
 // This is called if Google Maps request times out.
 setTimeout(function() {
 	try {
-		if(!google || !google.maps) {};
+		if(!google || !google.maps) {}
 	} catch(err) {
 		notifier.notifySubscribers("map timmed out", "mapTimout");
 	}

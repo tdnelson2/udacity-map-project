@@ -1,10 +1,11 @@
  var PrimaryViewModel = {
-	view: function(isMobileDevice) {
-		var self = this;
+    view: function(isMobileDevice) {
+        var self = this;
         self.mobileMode = isMobileDevice;
         self.map;
         self.infoWindow;
         self.markers = [];
+        self.mapBounds;
 
         /////////* BINDINGS PROPERTIES */////////
 
@@ -43,12 +44,17 @@
         self.hideDetails = function() {
             MarkerStylers.unhighlightAllMarkers(self.markers);
             self.infoWindow.close();
-        }
+        };
 
         // Get the index of the selected loction.
         self.indexOfCurrentLocation = function() {
-        	return self.locationList().indexOf(self.currentLocation());
-        }
+            return self.locationList().indexOf(self.currentLocation());
+        };
+
+        self.centerAndZoom = function() {
+            self.map.fitBounds(self.mapBounds);
+            self.map.setZoom(self.mobileMode ? 5 : 6);
+        };
 
         /////////**********************/////////
         /////////* BINDINGS FUNCTIONS */////////
@@ -57,44 +63,60 @@
         // Show the location description and infoWindow
         // associated with the location
         self.renderLocationClick = function(location) {
-            if(self.mobileMode){self.toggleSidebar()};
-        	self.currentLocation(location);
-        	var thisMarker = self.markers[self.indexOfCurrentLocation()]
-        	MarkerStylers.bounce(thisMarker, self.markers);
+            if(self.mobileMode){self.toggleSidebar();}
+            self.currentLocation(location);
+            var thisMarker = self.markers[self.indexOfCurrentLocation()];
+            MarkerStylers.bounce(thisMarker, self.markers);
                                     //    map, infoWindow, marker, markers, index, currentLocationKO, mapIsFullScreenKO
-			InfoWindow.populateInfoWindow(self.map, self.infoWindow,
+            InfoWindow.populateInfoWindow(self.map, self.infoWindow,
                                           thisMarker, self.markers,
                                           self.indexOfCurrentLocation(),
                                           self.currentLocation,
                                           self.mapShouldBeFullScreen);
-        }
+        };
 
         // Show/hide sidebar.
         self.toggleSidebar = function() {
             self.shouldShowSidebar(self.shouldShowSidebar() ? false : true);
             self.mapShouldBeFullScreen(self.mapShouldBeFullScreen() ? false : true);
             google.maps.event.trigger(self.map, "resize");
-        }
+
+            // Adjust map on toggle execpt when mobil device opens sidebar
+            if(!self.mobileMode || !self.shouldShowSidebar()){self.centerAndZoom();}
+        };
 
         // Filters the location list view and shows/hides markers.
-	    self.filterByCountry = function(location) {
-	    	self.currentLocation(null);
+        self.filterByCountry = function(location) {
+            self.currentLocation(null);
             self.hideDetails();
-	    	var markersToHide = [];
-	    	for (var i = 0; i < self.locationList().length; i++) {
-	    		var loc = self.locationList()[i]
-	    		var selected = self.selectedCountry().name;
-	    		if(selected == 'All') {
-	    			loc.hide(false);
-	    		} else if(loc.country != selected) {
-	    			loc.hide(true);
-	    			markersToHide.push(i);
-	    		} else if(loc.hide() === true) {
-	    			loc.hide(false);
-	    		}
-	    	}
-	    	MarkerStylers.hideSpecifiedMarkers(self.markers, markersToHide);
-	    }
+            var markersToHide = [];
+            for (var i = 0; i < self.locationList().length; i++) {
+                var loc = self.locationList()[i];
+                var selected = self.selectedCountry().name;
+                if(selected == 'All') {
+                    loc.hide(false);
+                } else if(loc.country != selected) {
+                    loc.hide(true);
+                    markersToHide.push(i);
+                } else if(loc.hide() === true) {
+                    loc.hide(false);
+                }
+            }
+
+            // Hide markers not within specified country
+            MarkerStylers.hideSpecifiedMarkers(self.markers, markersToHide);
+
+            // Reset the bounds to visible markers
+            var newBounds = new google.maps.LatLngBounds();
+            var markersToShow = [];
+            for (var i = 0; i < self.markers.length; i++) {markersToShow.push(i)};
+            var markersToShow = markersToShow.filter(function(obj) { return markersToHide.indexOf(obj) == -1; });
+            for (var i = 0; i < markersToShow.length; i++) {
+                newBounds.extend(self.markers[markersToShow[i]].position);
+            }
+            self.mapBounds = newBounds;
+            self.centerAndZoom();
+        };
 
         /////////**************************/////////
         /////////* MAP & VIEW MODEL SETUP */////////
@@ -102,18 +124,20 @@
 
         // Recieves notification from when Google Maps is ready to load.
         notifier.subscribe(function() {
-        	self.map = Map.initMap();
-        	self.infoWindow = new google.maps.InfoWindow();
-		    MarkerStylers.init();
-			for (var i = 0; i < self.locationList().length; i++) {
+            self.map = Map.initMap();
+            self.mapBounds = new google.maps.LatLngBounds();
+            self.infoWindow = new google.maps.InfoWindow();
+            MarkerStylers.init();
+            for (var i = 0; i < self.locationList().length; i++) {
                                     // map, markers,
                                     // infoWindow, locationIndex,
                                     // locationListKO, currentLocationKO,
                                     // mapIsFullScreenKO
-				Marker.buildMarker(self.map, self.markers, self.infoWindow,
+                Marker.buildMarker(self.map, self.mapBounds, self.markers, self.infoWindow,
                                    i, self.locationList, self.currentLocation,
                                    self.mapShouldBeFullScreen);
-			}
+            }
+            self.centerAndZoom();
         }, self, "mapReadyForInit");
 
         // Recieve notification if there is no response from Google Maps.
@@ -136,8 +160,8 @@
                     self.countries.push({ name: locationItem.country });
                 }
             });
-        }
+        };
 
         self.init();
     }
-}
+};

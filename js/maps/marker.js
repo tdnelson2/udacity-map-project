@@ -1,5 +1,5 @@
 Marker = {
-  buildMarker: function(map, markers,
+  buildMarker: function(map, mapBounds, markers,
                         infoWindow, locationIndex,
                         locationListKO, currentLocationKO,
                         mapIsFullScreenKO) {
@@ -17,9 +17,10 @@ Marker = {
           MarkerStylers.bounce(marker, markers);
           InfoWindow.populateInfoWindow(map, infoWindow, marker, markers, index, currentLocationKO, mapIsFullScreenKO);
           currentLocationKO(locationListKO()[index]);
-      }
+      };
     })(map, infoWindow, marker, markers, locationIndex, locationListKO, currentLocationKO, mapIsFullScreenKO));
 
     markers.push(marker);
+    mapBounds.extend(marker.position);
   }
-}
+};
