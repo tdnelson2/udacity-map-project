@@ -49,6 +49,10 @@ var InfoWindow = {
         return self.shouldShowFullDetails() ? "iw-details" : "iw-details iw-details-ltd";
     });
 
+    self.descriptionAmt = ko.pureComputed(function() {
+      return self.shouldShowFullDetails() ? "iw-description" : "iw-description-truncated";
+    });
+
     self.showDetails = function() {
       self.shouldShowDetails(!self.shouldShowDetails());
       // Adjust map to fit larger infowindow.
@@ -57,6 +61,8 @@ var InfoWindow = {
 
     self.toggleFullText = function() {
       self.shouldShowFullDetails(!self.shouldShowFullDetails());
+      // Adjust map to fit larger infowindow.
+      infoWindow.open(map, marker);
     }
 
     self.fetchVideo = function(thumb) {
@@ -78,7 +84,8 @@ var InfoWindow = {
 
     self.containerWidth = ko.observable(Math.floor(InfoWindow.width*1.05));
     self.videoWidth = ko.observable(InfoWindow.width);
-    infoWindow.maxWidth = InfoWindow.width;
+    // infoWindow.maxWidth = InfoWindow.width;
+    infoWindow.setOptions({maxWidth:InfoWindow.width});
 
     // Determine optimal thumb size
     self.thumbWidth = ko.pureComputed(function() {

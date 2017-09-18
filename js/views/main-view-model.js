@@ -23,6 +23,9 @@
         // Used for toggling map size.
         self.mapShouldBeFullScreen = ko.observable(isMobileDevice);
 
+        // On mobile devices, details shown in infoWindow instead of the sidebar.
+        self.detailsShouldBeVisible = ko.observable(!isMobileDevice);
+
         // Injects css into the map div for sizing the map.
         self.sizeCanvas = ko.pureComputed(function() {
             return self.mapShouldBeFullScreen() ? "map map-full-screen" : "map map-normal";

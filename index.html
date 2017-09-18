@@ -21,11 +21,11 @@
             <a href="" data-bind="text: title, click: $root.renderLocationClick"></a>
           <li>
         </ul>
-        <div data-bind="with: currentLocation" class="location-details">
+        <div data-bind="visible: detailsShouldBeVisible, with: currentLocation" class="location-details">
           <hr>
           <h1 class="loction-title" data-bind="text: title"></h1>
           <h2 class="city" data-bind="text: city"></h2>
-          <h4 class="contry" data-bind="text: country"></h4>
+          <h4 class="country" data-bind="text: country"></h4>
           <p class="description" data-bind="text: description"></p>
         </div>
       </div>
@@ -59,7 +59,7 @@
           <div class="iw-details" data-bind="visible: shouldShowDetails, click: toggleFullText, css: detailsAmt ">
             <h5 class="iw-city" data-bind="text: currentLocation().city"></h5>
             <h5 class="iw-country" data-bind="text: currentLocation().country"></h5>
-            <p class="iw-description" data-bind="text: currentLocation().description"></p>
+            <p data-bind="text: currentLocation().description, css: descriptionAmt"></p>
           </div>
         </div>
         <div id="embeded-video" class="video" data-bind="style: { width: videoWidth() + 'px' }, html: embeddedVideo"></div>

@@ -108,15 +108,6 @@ li a,
   width: 250px;
 }
 
-.video-thumb {
-  width: 80px;
-  cursor: pointer;
-}
-
-.spacer {
-  margin-right: 5px;
-}
-
 .sidebar-close-btn {
   top: 10px;
   left: 260px;
@@ -153,18 +144,9 @@ li a,
   transform: translate(-50%, -50%);
 }
 
-.video-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 15px;
-  height: 70px;
-  overflow: scroll;
-}
 
 
-
-/*NEW INFOWINDOW VIDEO CONTENT*/
+/*INFOWINDOW CONTENT*/
 
 .video, .thumbs, .iw-header, .iw-disclose-btn {
   margin: auto;
@@ -180,18 +162,15 @@ li a,
 
  .iw-title {
   margin-top: 10px;
+  cursor: pointer;
  }
-
-/*.iw-disclose-btn {
-  text-align: right;
-}*/
 
 .details-btn {
   margin-bottom: 4px;
+  cursor: pointer;
 }
 
 .iw-details {
-  overflow: scroll;
   margin-bottom: 4px;
 }
 
@@ -214,6 +193,16 @@ li a,
   margin-top: 0;
 }
 
+.iw-description, .iw-description-truncated {
+  cursor: pointer;
+}
+
+.iw-description-truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .iw-header {
   margin-top: 10px
   margin-bottom: 10px;
@@ -231,4 +220,5 @@ li a,
   margin-top: 5px;
   width: 80px;
   height: 45px;
+  cursor: pointer;
 }
