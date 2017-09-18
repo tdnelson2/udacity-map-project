@@ -36,24 +36,35 @@
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/models/model.js"></script>
-    <script src="js/maps/info-window-video-content.js"></script>
-    <script src="js/maps/info-window.js"></script>
     <script src="js/maps/marker-stylers.js"></script>
     <script src="js/maps/marker.js"></script>
     <script src="js/maps/map.js"></script>
-    <script src="js/views/sidebar.js"></script>
+    <script src="js/views/info-window-view-model.js"></script>
+    <script src="js/views/main-view-model.js"></script>
     <script src="js/app.js"></script>
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=mapReady">
     </script>
+
     <!-- templates -->
+
     <script type="text/html" id="info-window-template">
-      <div  id="partner-info-window">
-        <h4 data-bind="text: currentLocation().title"></h4>
-        <div id="embeded-video" data-bind="html: embeddedVideo"></div>
-        <div class="video-thumbs" data-bind="foreach: videoThumbs">
-          <img data-bind="click: $root.fetchVideo, attr: { src: url }" class="video-thumb" src="">
+      <div id="partner-info-window" class="video-container" data-bind="style: { width: containerWidth() + 'px' } " >
+        <div class="iw-header" data-bind="style: { width: videoWidth() + 'px' }, ">
+          <div class="iw-title" data-bind="click: showDetails">
+            <h4 data-bind="text: currentLocation().title"></h4>
+            <i data-bind="css: detailsCaret" aria-hidden="true"></i>
+          </div>
+          <div class="iw-details" data-bind="visible: shouldShowDetails, click: toggleFullText, css: detailsAmt ">
+            <h5 class="iw-city" data-bind="text: currentLocation().city"></h5>
+            <h5 class="iw-country" data-bind="text: currentLocation().country"></h5>
+            <p class="iw-description" data-bind="text: currentLocation().description"></p>
+          </div>
+        </div>
+        <div id="embeded-video" class="video" data-bind="style: { width: videoWidth() + 'px' }, html: embeddedVideo"></div>
+        <div class="thumbs" data-bind="style: { width: videoWidth() + 'px' }, foreach: videoThumbs">
+          <img class="thumb" data-bind="style: { width: $root.thumbWidth() + 'px', height: $root.thumbHeight() + 'px' }, click: $root.fetchVideo, attr: { src: url }" src="">
         </div>
       </div>
     </script>

@@ -22,7 +22,7 @@ setTimeout(function() {
 
 /////////* LOAD VIEW MODEL */////////
 
-var isMobileDevice = $( window ).width() < 500; 
+var isMobileDevice = $( window ).width() < 700;
 
 // init knockoutjs to manage sidebar view
 ko.applyBindings(new SidebarViewModel.view(isMobileDevice));

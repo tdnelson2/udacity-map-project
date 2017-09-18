@@ -154,7 +154,81 @@ li a,
 }
 
 .video-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 15px;
   height: 70px;
   overflow: scroll;
+}
+
+
+
+/*NEW INFOWINDOW VIDEO CONTENT*/
+
+.video, .thumbs, .iw-header, .iw-disclose-btn {
+  margin: auto;
+}
+
+.video {
+  padding-top: 10px;
+}
+
+.iw-title h4 {
+  display: inline;
+}
+
+ .iw-title {
+  margin-top: 10px;
+ }
+
+/*.iw-disclose-btn {
+  text-align: right;
+}*/
+
+.details-btn {
+  margin-bottom: 4px;
+}
+
+.iw-details {
+  overflow: scroll;
+  margin-bottom: 4px;
+}
+
+.iw-details-ltd {
+  max-height: 100px;
+}
+
+.iw-city {
+  padding-top: 10px ;
+  margin-top: 0;
+}
+
+.iw-city, .iw-country, .iw-description {
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+
+.iw-country, .iw-description {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.iw-header {
+  margin-top: 10px
+  margin-bottom: 10px;
+}
+
+.thumbs {
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.thumb {
+  padding: 2px;
+  margin-top: 5px;
+  width: 80px;
+  height: 45px;
 }

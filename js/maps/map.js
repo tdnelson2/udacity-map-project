@@ -1,10 +1,6 @@
 
 Map = {
 
-  markers: [],
-
-  infoWindow: null,
-
   mapCenter: { lat: -3.792678, lng: 35.545009 },
 
   initMap: function() {
