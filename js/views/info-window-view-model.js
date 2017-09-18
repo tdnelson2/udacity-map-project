@@ -85,7 +85,7 @@ var InfoWindow = {
     self.containerWidth = ko.observable(Math.floor(InfoWindow.width*1.05));
     self.videoWidth = ko.observable(InfoWindow.width);
     // infoWindow.maxWidth = InfoWindow.width;
-    infoWindow.setOptions({maxWidth:InfoWindow.width});
+    // infoWindow.setOptions({maxWidth:InfoWindow.width});
 
     // Determine optimal thumb size
     self.thumbWidth = ko.pureComputed(function() {

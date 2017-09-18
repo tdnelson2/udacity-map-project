@@ -24,5 +24,5 @@ setTimeout(function() {
 
 var isMobileDevice = $( window ).width() < 700;
 
-// init knockoutjs to manage sidebar view
-ko.applyBindings(new SidebarViewModel.view(isMobileDevice));
+// Init knockoutjs ViewModel.
+ko.applyBindings(new PrimaryViewModel.view(isMobileDevice));

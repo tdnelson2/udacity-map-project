@@ -1,4 +1,4 @@
- var SidebarViewModel = {
+ var PrimaryViewModel = {
 	view: function(isMobileDevice) {
 		var self = this;
         self.mobileMode = isMobileDevice;
