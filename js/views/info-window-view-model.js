@@ -8,7 +8,8 @@ var InfoWindow = {
     var infoWindowHTML = document.getElementById("info-window-template").innerHTML;
     infoWindow.setContent(infoWindowHTML);
     infoWindow.open(map, marker);
-    ko.applyBindings(new InfoWindow.ViewModel(map, infoWindow, marker, index, mapIsFullScreenKO),
+    ko.applyBindings(new InfoWindow.ViewModel(map, infoWindow, marker, 
+                                              index, mapIsFullScreenKO),
                document.getElementById('partner-info-window'));
 
     // Make sure the marker property is cleared if the infoWindow is closed.
@@ -35,19 +36,24 @@ var InfoWindow = {
     self.shouldShowDetails = ko.observable(mapIsFullScreenKO());
     self.shouldShowFullDetails = ko.observable(false);
     self.detailsCaret = ko.pureComputed(function() {
-        return self.shouldShowDetails() ? "fa fa-caret-down fa-fw" : "fa fa-caret-right fa-fw";
+        return self.shouldShowDetails() ? "fa fa-caret-down fa-fw" : 
+                                          "fa fa-caret-right fa-fw";
     });
 
+    // Set css classes that match the corresponding condition.
     self.detailsAmt = ko.pureComputed(function() {
-        return self.shouldShowFullDetails() ? "iw-details" : "iw-details iw-details-ltd";
+        return self.shouldShowFullDetails() ? "iw-details" : 
+                                              "iw-details iw-details-ltd";
     });
 
     self.descriptionAmt = ko.pureComputed(function() {
-      return self.shouldShowFullDetails() ? "iw-description" : "iw-description-truncated";
+      return self.shouldShowFullDetails() ? "iw-description" : 
+                                            "iw-description iw-description-truncated";
     });
 
     self.showDetails = function() {
       self.shouldShowDetails(!self.shouldShowDetails());
+      
       // Adjust map to fit larger infowindow.
       infoWindow.open(map, marker);
     };
@@ -60,7 +66,8 @@ var InfoWindow = {
     };
 
     self.fetchVideo = function(thumb) {
-      InfoWindow.embedVideo(thumb.link, self.embeddedVideo, mapIsFullScreenKO, map, marker, infoWindow);
+      InfoWindow.embedVideo(thumb.link, self.embeddedVideo, mapIsFullScreenKO, 
+                            map, marker, infoWindow);
     };
 
     // Determine what the video size should be.
@@ -73,8 +80,10 @@ var InfoWindow = {
     // we'll make the video dimensions 640x360.
     // But if it is lower than 900px,
     // we'll make the dimensions 70% of the screen width
-    InfoWindow.width = self.mapWidth > 900 ? 640 : Math.floor(self.mapWidth*0.7);
-    InfoWindow.height = self.mapWidth > 900 ? 360 : Math.floor(InfoWindow.width*9/16);
+    InfoWindow.width = self.mapWidth > 900 ? 640 : 
+                                       Math.floor(self.mapWidth*0.7);
+    InfoWindow.height = self.mapWidth > 900 ? 360 : 
+                                        Math.floor(InfoWindow.width*9/16);
 
     self.containerWidth = ko.observable(Math.floor(InfoWindow.width*1.05));
     self.videoWidth = ko.observable(InfoWindow.width);
@@ -102,26 +111,29 @@ var InfoWindow = {
 
     // Add links to videos and embed the top result.
     InfoWindow.render(map,
-                    infoWindow,
-                    marker,
-                    self.currentLocation,
-                    self.videoThumbs,
-                    self.embeddedVideo,
-                    mapIsFullScreenKO);
+                      infoWindow,
+                      marker,
+                      self.currentLocation,
+                      self.videoThumbs,
+                      self.embeddedVideo,
+                      mapIsFullScreenKO);
   },
 
     // Render result of video search using an arry of search terms.
-  render: function(map, infoWindow, marker, locationKO, thumbsKO, embeddedVideoKO, mapIsFullScreenKO) {
+  render: function(map, infoWindow, marker, locationKO, thumbsKO, 
+                   embeddedVideoKO, mapIsFullScreenKO) {
     var searchTerms = [locationKO().title,
               locationKO().city,
               locationKO().country];
 
     // Query Vimeo for videos.
-    this.addFromQuery(map, infoWindow, marker, searchTerms, thumbsKO, embeddedVideoKO, mapIsFullScreenKO);
+    this.addFromQuery(map, infoWindow, marker, searchTerms, 
+                      thumbsKO, embeddedVideoKO, mapIsFullScreenKO);
   },
 
   // add results from searching the next item in the searchTerms list
-  addFromQuery: function(map, infoWindow, marker, searchTerms, thumbsKO, embeddedVideoKO, mapIsFullScreenKO) {
+  addFromQuery: function(map, infoWindow, marker, searchTerms, thumbsKO, 
+                         embeddedVideoKO, mapIsFullScreenKO) {
     var url = "https://api.vimeo.com/users/lahash/videos";
     url += '?' + $.param({
       'access_token': "56cf73847a95b1e6fef352aedc5bb1d5",
@@ -135,7 +147,8 @@ var InfoWindow = {
       var dataAry = result.data;
       if(dataAry.length > 0) {
         if(embeddedVideoKO() === '') {
-          InfoWindow.embedVideo(dataAry[0].link, embeddedVideoKO, mapIsFullScreenKO, map, marker, infoWindow);
+          InfoWindow.embedVideo(dataAry[0].link, embeddedVideoKO, 
+                                mapIsFullScreenKO, map, marker, infoWindow);
         }
         dataAry.map(function(x) {
           var currentThumbs = thumbsKO().map(function(x) { return x.url; });

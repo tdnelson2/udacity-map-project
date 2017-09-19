@@ -35,7 +35,6 @@ body {
   text-align: left;
   width: 300px;
   list-style: none;
-  overflow: scroll !important;
 }
 
 hr {
@@ -106,6 +105,9 @@ li a,
 
 .description {
   width: 250px;
+  height: 250px;
+  overflow-y: hidden;
+  overflow: scroll;
 }
 
 /* SIDEBAR CLOSE BUTTON */
@@ -198,8 +200,8 @@ li a,
 }
 
 .iw-city {
-  padding-top: 10px ;
-  margin-top: 0;
+  padding-top: 0 ;
+  margin-top: 8px;
 }
 
 .iw-city, .iw-country {
@@ -214,10 +216,6 @@ li a,
 
 .iw-description {
   padding-bottom: 0;
-}
-
-.iw-description, .iw-description-truncated {
-  cursor: pointer;
 }
 
 .iw-description-truncated {
