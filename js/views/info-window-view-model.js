@@ -1,29 +1,23 @@
 var InfoWindow = {
-
-  locationKO: null,
-  thumbsKO: null,
-  embeddedVideoKO: null,
-  mapIsFullScreenKO: null,
   populateInfoWindow: function(map, infoWindow,
                                marker, markers,
                                index, currentLocationKO,
                                mapIsFullScreenKO) {
     // Check to make sure the infowWindow is not already opened on this marker.
-    if (infoWindow.marker != marker) {
-      infoWindow.marker = marker;
-      var infoWindowHTML = document.getElementById("info-window-template").innerHTML;
-      infoWindow.setContent(infoWindowHTML);
-      infoWindow.open(map, marker);
-      ko.applyBindings(new InfoWindow.ViewModel(map, infoWindow, marker, index, mapIsFullScreenKO),
-                 document.getElementById('partner-info-window'));
+    infoWindow.marker = marker;
+    var infoWindowHTML = document.getElementById("info-window-template").innerHTML;
+    infoWindow.setContent(infoWindowHTML);
+    infoWindow.open(map, marker);
+    ko.applyBindings(new InfoWindow.ViewModel(map, infoWindow, marker, index, mapIsFullScreenKO),
+               document.getElementById('partner-info-window'));
 
-      // Make sure the marker property is cleared if the infoWindow is closed.
-      infoWindow.addListener('closeclick', function(){
-        MarkerStylers.unhighlightAllMarkers(markers);
-        currentLocationKO(null);
-        infoWindow.setMarker = null;
-      });
-    }
+    // Make sure the marker property is cleared if the infoWindow is closed.
+    infoWindow.addListener('closeclick', function(){
+      MarkerStylers.unhighlightAllMarkers(markers);
+      currentLocationKO(null);
+      infoWindow.close();
+      infoWindow.setMarker = null;
+    });
   },
 
   /////////*****************/////////
@@ -32,7 +26,6 @@ var InfoWindow = {
 
   width: null,
   height: null,
-  spacer: null,
 
   ViewModel: function(map, infoWindow, marker, markerIndex, mapIsFullScreenKO) {
     var self = this;
@@ -61,6 +54,7 @@ var InfoWindow = {
 
     self.toggleFullText = function() {
       self.shouldShowFullDetails(!self.shouldShowFullDetails());
+
       // Adjust map to fit larger infowindow.
       infoWindow.open(map, marker);
     };
