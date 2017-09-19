@@ -73,6 +73,6 @@ MarkerStylers = {
 
   init: function() {
     this.defaultIcon = this.makeMarkerIcon('ffffff', 29, 47);
-    this.highlightedIcon = this.makeMarkerIcon('0091ff', 42, 68);
+    this.highlightedIcon = this.makeMarkerIcon('0091ff', 29, 47);
   }
 };
