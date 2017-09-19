@@ -32,6 +32,18 @@
             return self.mapShouldBeFullScreen() ? "map map-full-screen" : "map map-normal";
         });
 
+        // Injects css into the chevron menu div for 
+        // smaller button on mobile screens and larger
+        // on tablets and computers
+        self.sizeChevronButton = ko.pureComputed(function() {
+            return self.mobileMode ? "chevron-menu chevron-menu-sm" : "chevron-menu chevron-menu-lg";
+        });
+
+        self.sizeChevronGlyph = ko.pureComputed(function() {
+            return self.mobileMode ? "fa fa-chevron-right fa-1x chevron-glyph chevron-glyph-sm" : 
+                                     "fa fa-chevron-right fa-3x chevron-glyph chevron-glyph-lg";
+        });
+
         // Displays details within the sidebar
         // about the selected location.
         self.currentLocation = ko.observable();
