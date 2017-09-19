@@ -55,14 +55,20 @@ MarkerStylers = {
     }
   },
 
-  hideSpecifiedMarkers: function(markers, indexes) {
-    for (var i = 0; i < markers.length; i++) {
-      if(indexes.includes(i)) {
-        markers[i].setVisible(false);
+  hideSpecifiedMarkers: function(allMarkers, filteredMarkers) {
+    
+    // Reset the bounds to visible markers
+    var newBounds = new google.maps.LatLngBounds();
+
+    for (var i = 0; i < allMarkers.length; i++) {
+      if(filteredMarkers.includes(allMarkers[i])) {
+        allMarkers[i].setVisible(false);
       } else {
-        markers[i].setVisible(true);
+        allMarkers[i].setVisible(true);
+        newBounds.extend(allMarkers[i].position);
       }
     }
+    return newBounds;
   },
 
   init: function() {

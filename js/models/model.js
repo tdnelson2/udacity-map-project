@@ -58,4 +58,4 @@ var Model = {
 		this.hide = ko.observable(false);
 		this.marker = null;
 	}
-}
+};

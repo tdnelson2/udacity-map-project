@@ -97,24 +97,14 @@
                     loc.hide(false);
                 } else if(loc.country != selected) {
                     loc.hide(true);
-                    markersToHide.push(i);
+                    markersToHide.push(self.markers[i]);
                 } else if(loc.hide() === true) {
                     loc.hide(false);
                 }
             }
 
-            // Hide markers not within specified country
-            MarkerStylers.hideSpecifiedMarkers(self.markers, markersToHide);
-
-            // Reset the bounds to visible markers
-            var newBounds = new google.maps.LatLngBounds();
-            var markersToShow = [];
-            for (var i = 0; i < self.markers.length; i++) {markersToShow.push(i)};
-            var markersToShow = markersToShow.filter(function(obj) { return markersToHide.indexOf(obj) == -1; });
-            for (var i = 0; i < markersToShow.length; i++) {
-                newBounds.extend(self.markers[markersToShow[i]].position);
-            }
-            self.mapBounds = newBounds;
+            // Hide markers not within specified country and reset bounds
+            self.mapBounds = MarkerStylers.hideSpecifiedMarkers(self.markers, markersToHide);
             self.centerAndZoom();
         };
 
