@@ -57,10 +57,13 @@
             <h4 data-bind="text: currentLocation().title"></h4>
             <i data-bind="css: detailsCaret" aria-hidden="true"></i>
           </div>
-          <div class="iw-details" data-bind="visible: shouldShowDetails, click: toggleFullText, css: detailsAmt, , with: currentLocation ">
+          <div class="iw-details" data-bind="visible: shouldShowDetails, css: detailsAmt, with: currentLocation ">
             <h5 class="iw-city" data-bind="text: city"></h5>
             <h5 class="iw-country" data-bind="text: country"></h5>
             <p data-bind="text: description, css: $root.descriptionAmt"></p>
+            <a class="iw-see-more-btn" data-bind="click: $root.toggleFullText" href="">
+              <small data-bind="text: $root.shouldShowFullDetails() ? 'See Less...' : 'See More...'"></small>
+            </a>
           </div>
         </div>
         <div id="embeded-video" class="video" data-bind="style: { width: videoWidth() + 'px' }, html: embeddedVideo"></div>

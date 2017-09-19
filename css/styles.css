@@ -202,7 +202,7 @@ li a,
   margin-top: 0;
 }
 
-.iw-city, .iw-country, .iw-description {
+.iw-city, .iw-country {
   padding-bottom: 10px;
   margin-bottom: 0;
 }
@@ -210,6 +210,10 @@ li a,
 .iw-country, .iw-description {
   padding-top: 0;
   margin-top: 0;
+}
+
+.iw-description {
+  padding-bottom: 0;
 }
 
 .iw-description, .iw-description-truncated {
@@ -220,6 +224,17 @@ li a,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.iw-see-more-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-bottom: 0;
+  text-align: right;
 }
 
 .iw-header {
