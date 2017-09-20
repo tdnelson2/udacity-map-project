@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald:200,700" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
   </head>
   <body>
       <div class="sidebar" id="sidebar" data-bind="visible: shouldShowSidebar">
@@ -45,7 +45,7 @@
     <script src="js/app.js"></script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=mapReady">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4VQB1Ok9qXO6yhZ5RC6SRPdmMp24FkEY&v=3&callback=mapReady" onerror="gmapsError()">
     </script>
 
     <!-- templates -->
