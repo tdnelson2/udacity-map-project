@@ -64,8 +64,8 @@
         };
 
         self.centerAndZoom = function() {
-            // self.map.fitBounds(self.mapBounds);
-            // self.map.setZoom(self.mobileMode ? 5 : 6);
+            self.map.fitBounds(self.mapBounds);
+            self.map.setZoom(self.mobileMode ? 5 : 6);
         };
 
         /////////**********************/////////

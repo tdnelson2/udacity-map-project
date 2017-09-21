@@ -126,14 +126,10 @@ var InfoWindow = {
 
     self.showDetails = function() {
       self.shouldShowDetails(!self.shouldShowDetails());
-      
-      // Adjust map to fit larger infoWindow.
-      // InfoWindow.infoWindow.open(InfoWindow.map, InfoWindow.marker);
     };
 
     self.toggleFullText = function() {
       self.shouldShowFullDetails(!self.shouldShowFullDetails());
-      // InfoWindow.infoWindow.open(InfoWindow.map, InfoWindow.marker);
     };
 
     self.fetchVideo = function(thumb) {
@@ -209,9 +205,6 @@ var InfoWindow = {
       method: 'GET',
     }).done(function(result) {
       embeddedVideoKO(result.html);
-
-      // Adjust map to fit infoWindow on screen.
-      // InfoWindow.infoWindow.open(InfoWindow.map, InfoWindow.marker);
     }).fail(function(err) {
       embeddedVideoKO(InfoWindow.vimeoErrMsg);
     });
