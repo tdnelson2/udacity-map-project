@@ -1,4 +1,4 @@
-View this project here: [https://tdnelson2.github.io/map/](https://tdnelson2.github.io/map/)
+View this project here: [https://tdnelson2.github.io/map/](http://timothynelson.me/partner-map/)
 # Partner Map
 The purpose of this project is to demonstrate my abilty to use JS APIs and organization libraries. The rubic asks that all DOM updates be handeled by either the [Google Maps API](https://developers.google.com/maps/) or [Knockoutjs](http://knockoutjs.com/). It uses the [Google Maps API](https://developers.google.com/maps/) to show locations using markers and info windows. It uses the [Vimeo API](https://developer.vimeo.com/api/start) to show videos about those locations from the non-profit [Lahash International](http://lahash.org/) (An organization at which my wife happens to work).
 
