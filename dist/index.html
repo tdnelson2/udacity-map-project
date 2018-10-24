@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lahash Partner Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:200,700" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+      <div class="sidebar" id="sidebar" data-bind="visible: shouldShowSidebar">
+        <h1 class="sidebar-brand">Our Partners</h1>
+        <i class="fa fa-times fa-2x sidebar-close-btn" data-bind="click: toggleSidebar" aria-hidden="true"></i>
+        <form>
+          <select class="country-select" data-bind="options: countries, optionsText: 'name', value: selectedCountry, event: {change: filterByCountry}"></select>
+        </form>
+        <ul data-bind="foreach: locationList">
+          <li data-bind="ifnot: hide">
+            <a href="" data-bind="text: title, click: $root.renderLocationClick"></a>
+          <li>
+        </ul>
+        <div data-bind="visible: detailsShouldBeVisible, with: currentLocation" class="location-details">
+          <hr>
+          <h1 class="loction-title" data-bind="text: title"></h1>
+          <h2 class="city" data-bind="text: city"></h2>
+          <h4 class="country" data-bind="text: country"></h4>
+          <p class="description" data-bind="text: description"></p>
+        </div>
+      </div>
+    <div id="map" data-bind="css: sizeCanvas"></div>
+    <div data-bind="click: toggleSidebar, visible: mapShouldBeFullScreen, css: sizeChevronButton">
+      <i data-bind="css: sizeChevronGlyph" aria-hidden="true"></i>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

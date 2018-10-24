@@ -1,0 +1,30 @@
+{
+  "name": "partner-map",
+  "version": "1.0.0",
+  "description": "A single-page app for displaying text and videos about locations on a map",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "start": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdnelson2/udacity-map-project.git"
+  },
+  "author": "Timothy Nelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tdnelson2/udacity-map-project/issues"
+  },
+  "homepage": "https://github.com/tdnelson2/udacity-map-project#readme",
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.21.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "knockout": "^3.4.2"
+  }
+}
