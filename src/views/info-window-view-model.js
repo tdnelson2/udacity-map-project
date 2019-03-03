@@ -18,7 +18,7 @@ var infoWindowObj = {
   vimeoErrMsg: '<h1 style="color: red;">There was a problem getting data from Vimeo</h1>',
   vimeoOembedURL: "https://vimeo.com/api/oembed.json",
 
-  // A function for calculating the width of 
+  // A function for calculating the width of
   // the thumbnails which appear below the video
   // so that they fit flush with the video.
   getThumbWidth: function() {
@@ -36,6 +36,8 @@ var infoWindowObj = {
     this.currentLocation = model.Locations[index];
     this.map = map;
     this.infoWindow = infoWindow;
+    this.markers = markers;
+    this.index = index;
     this.marker = marker,
     this.markerIndex = index;
     this.mapIsFullScreenKO = mapIsFullScreenKO;
@@ -52,9 +54,9 @@ var infoWindowObj = {
     // we'll make the video dimensions 640x360.
     // But if it is lower than 900px,
     // we'll make the dimensions 70% of the screen width
-    infoWindowObj.width = mapWidth > 900 ? 640 : 
+    infoWindowObj.width = mapWidth > 900 ? 640 :
                                        Math.floor(mapWidth*0.6);
-    infoWindowObj.height = mapWidth > 900 ? 360 : 
+    infoWindowObj.height = mapWidth > 900 ? 360 :
                                         Math.floor(this.width*9/16);
 
     var containerWidth = Math.floor(infoWindowObj.width*1.05);
@@ -67,7 +69,7 @@ var infoWindowObj = {
 
     // Populate HTML.
     var infoWindowHTML = ''+
-    '<div id="partner-info-window" class="video-container" style="width: '+containerWidth+'px;" } " >'+
+    '<div id="partner-info-window" class="video-container" style="width: '+containerWidth+'px;">'+
       '<div class="iw-header" style="width: '+videoWidth+'px;">'+
         '<div class="iw-title" data-bind="click: showDetails">'+
           '<h4>'+this.currentLocation.title+'</h4>'+
@@ -90,20 +92,22 @@ var infoWindowObj = {
 
     // Open the infoWindow. We can only apply KO bindings
     // once the HTML has been added to the DOM.
-    infoWindow.marker = marker;
-    infoWindow.setContent(infoWindowHTML);
-    infoWindow.open(map, marker);
+    this.infoWindow.marker = this.marker;
+    this.infoWindow.setContent(infoWindowHTML);
+    this.infoWindow.open(this.map, this.marker);
 
-
-    ko.applyBindings(new infoWindowObj.ViewModel(map, infoWindow, marker, 
-                     index, mapIsFullScreenKO), document.getElementById('partner-info-window'));
+    // Add Knockout bindings once dom is ready.
+    this.infoWindow.addListener('domready', function() {
+      ko.applyBindings(new infoWindowObj.ViewModel(this.map, this.infoWindow, this.marker,
+                       this.index, this.mapIsFullScreenKO), document.getElementById('partner-info-window'));
+    });
 
     // Make sure the marker property is cleared if the infoWindow is closed.
-    infoWindow.addListener('closeclick', function(){
+    infoWindow.addListener('closeclick', function() {
       markerStylers.unhighlightAllMarkers(markers);
       currentLocationKO(null);
-      infoWindow.close();
-      infoWindow.setMarker = null;
+      this.infoWindow.close();
+      this.infoWindow.setMarker = null;
     });
   },
 
@@ -114,18 +118,18 @@ var infoWindowObj = {
     self.shouldShowDetails = ko.observable(infoWindowObj.mapIsFullScreenKO());
     self.shouldShowFullDetails = ko.observable(false);
     self.detailsCaret = ko.pureComputed(function() {
-        return self.shouldShowDetails() ? "fa fa-caret-down fa-fw" : 
+        return self.shouldShowDetails() ? "fa fa-caret-down fa-fw" :
                                           "fa fa-caret-right fa-fw";
     });
 
     // Set css classes that match the corresponding condition.
     self.detailsAmt = ko.pureComputed(function() {
-        return self.shouldShowFullDetails() ? "iw-details" : 
+        return self.shouldShowFullDetails() ? "iw-details" :
                                               "iw-details iw-details-ltd";
     });
 
     self.descriptionAmt = ko.pureComputed(function() {
-      return self.shouldShowFullDetails() ? "iw-description" : 
+      return self.shouldShowFullDetails() ? "iw-description" :
                                             "iw-description iw-description-truncated";
     });
 
